@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2022-09-22T09:44:19Z"
+  generateName: kubia-
+  labels:
+    app: kubia
+  name: kubia-776n9
+  namespace: default
+  ownerReferences:
+  - apiVersion: v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicationController
+    name: kubia
+    uid: 213a0b02-1be2-458c-a6bc-c000687673da
+  resourceVersion: "337369"
+  uid: e15771dc-72d5-4b38-a487-12e11a61ea84
+spec:
+  containers:
+  - image: mouseonthetree/kubia
+    imagePullPolicy: Always
+    name: kubia
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-66kkd
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-66kkd
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:44:19Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:44:28Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:44:28Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:44:19Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://aafec81b03851ec6c315eed49c2137a84cdda03d693d47b072407fb9a4949810
+    image: mouseonthetree/kubia:latest
+    imageID: docker-pullable://mouseonthetree/kubia@sha256:9accb2874b7b2ba3742ef3577fd5fce5bdf022f4ccd4a288f2c55d64bdeab27b
+    lastState: {}
+    name: kubia
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-09-22T09:44:28Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 172.17.0.8
+  podIPs:
+  - ip: 172.17.0.8
+  qosClass: BestEffort
+  startTime: "2022-09-22T09:44:19Z"
