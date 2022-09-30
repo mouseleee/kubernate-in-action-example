@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-private
+spec:
+  imagePullSecrets:
+    - name: mydockerhubsecret
+  containers:
+    - image: mouseonthetree/mousefun:test
+      name: test
